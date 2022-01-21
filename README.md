@@ -12,12 +12,12 @@ Data files associated with the SARDANA-097 image are available at the Sage Synap
 
    * 40-channel OME-TIFF image file
    * single-cell feature table (CSV format) with the following columns:
-     * `CellID` - a unique identifier of each cell within the tissue specimen
-     * `Hoechst0` through `CollagenIV_647` - log10-transformed average signal intensities of each cell comprising the tissue.  
-     * `X_centroid` and `Y_centroid` - coordinates of the cell in tissue specimen.
-     * `Area` through `Orientation` - morphological features extracted from segmented cell populations
-   * cell segmentation mask
-   * quality control mask (i.e. per-cell ground truth annotations)
+     * `CellID` - a unique identifier for each cell within the tissue
+     * `Hoechst0` through `CollagenIV_647` - log10-transformed integrated signal intensities for each of 40 channels.  
+     * `X_centroid` and `Y_centroid` - spatial coordinates of cells in the tissue
+     * `Area` through `Orientation` - nuclear morphological features extracted from segmented cells
+   * cell segmentation mask indexed 0-n, where n is the number of segmented   cells in the tissue (1,242,756)
+   * quality control mask indexed 0-5 (0=unknown, 1=fluorescence aberration, 2=slide debris, 3=cover slip air bubble, 4=tissue detachment, 5=image blur)
 
 ## Requisite Output
 Classifier output must consist of a two-column CSV file of CellIDs and confidence scores (0-1) for whether each cell in the SARDANA-097 image is corrupted by a microscopy artifact.
