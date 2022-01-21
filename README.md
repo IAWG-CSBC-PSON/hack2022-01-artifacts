@@ -3,13 +3,7 @@
 ## Challenge Description
 Multiplex images of tissue contain information on the gene expression, morphology, and spatial distribution of individual cells comprising biologically specialized niches. However, accurate extraction of cell-level features from pixel-level data is hindered by the presence of microscopy artifacts. Manual curation of noisy cell segmentation instances scales poorly with increasing dataset size, and methods capable of automated artifact detection are needed to enhance workflow efficiency, minimize curator burden, and mitigate human bias. In this challenge, participants will draw on classical and/or machine learning approaches to develop probabilistic classifiers for detecting cell segmentation instances corrupted by microscopy artifacts in multiplex images of tissue.
 
-![alt text](https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.png)
-
-<!-- <object data="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf">Download PDF</a>.</p>
-    </embed>
-</object> -->
+![alt text](https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/blob/main/schematic.png?raw=true)
 
 ## Training Data
 Training data for this challenge consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma (referred to as the SARDANA-097 image). The tissue has been probed for 21 tumor, immune, and stromal markers plus Hoechst nuclear counterstain over 8 rounds of t-CyCIF at 20x resolution.
