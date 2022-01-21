@@ -1,19 +1,33 @@
-# Challenge
-Automated Detection of Microscopy Artifacts
+# Automated Detection of Microscopy Artifacts
 
-## Task
-Challenge Participants will use classical and/or machine learning approaches to develop probabilistic classifiers for detecting cell segmentation instances impacted by microscopy artifacts in multiplex images of tissue.
+## Description
+Multiplex images of tissue contain information on the gene expression, morphology, and spatial distribution of individual cells comprising biologically specialized niches. However, accurate extraction of cell-level features from pixel-level data is hindered by the presence of microscopy artifacts. Manual curation of noisy cell segmentation instances scales poorly with increasing dataset size, and methods capable of automated artifact detection are needed to enhance workflow efficiency, minimize curator burden, and mitigate human bias. In this challenge, participants will draw on classical and/or machine learning approaches to develop probabilistic classifiers for detecting cell segmentation instances corrupted by microscopy artifacts in multiplex images of tissue.
 
-## Data
-40-channel t-CyCIF data, a cell segmentation mask, and corresponding single-cell feature table for a 1.6cm2 section of primary human colorectal adenocarcinoma imaged at 20x resolution (SARDANA-097 image) reside at the Sage Synapse data repository under the following ID: syn26848598. The interpretation of columns is as follows:
+<object data="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
 
-  * `CellID` - a unique identifier of each cell within the tissue specimen
-  * `Area` through `Orientation` - morphological features extracted from segmented cell populations
-  * `X_posiiton` and `Y_position` - coordinates of the cell in tissue specimen.
+## Training Data
+Training data for this challenge consists of a single 1.6cm2 section of primary human colorectal adenocarcinoma (referred to as SARDANA-097) probed for 21 tumor, immune, and stromal markers imaged over 8 rounds of t-CyCIF at 20x resolution.
 
+Data files for this challenge are available at Sage Synapse (Synapse ID: syn26848598) and consist of the following files:
+
+   * 40-channel OME-TIFF image file
+   * corresponding single-cell CSV feature table
+    - `CellID` - a unique identifier of each cell within the tissue specimen
+    - `Hoechst0` through `CollagenIV_647` - log10-transformed average signal intensities of each cell comprising the tissue.  
+    - `X_centroid` and `Y_centroid` - coordinates of the cell in tissue specimen.
+    - `Area` through `Orientation` - morphological features extracted from segmented cell populations
+   * cell segmentation mask
+   * cell quality control (QC) mask (i.e. ground truth labels)
+
+## Requisite Output
+Classifier output must consist of a two-column CSV file consisting of CellIDs and confidence scores (0-1) for whether each cell is corrupted by a microscopy artifact.
 
 ## Performance Evaluation
-Binary ground truth annotations for the ~1.2M cells comprising the SARDANA-097 image have been denoted as either 0 (unknown) or 1 (affected by a microscopy artifact) using an existing QC tool for multiplex image analysis (CyLinter; https://github.com/labsyspharm/cylinter). Using these ground truth annotations, algorithm performance will be benchmarked comparing them to those predicted by automated QC methods using Receiver operating characteristic (ROC) curve analysis. To score predictions, we simply provide the two-column CSV file together with the matching "ground truth" file to `score.py`:
+Classifier confidence scores will be benchmarked against ground truth annotations using Receiver operating characteristic (ROC) curve analysis. To score predictions, simply provide the two-column CSV file of confidence scores and matching `truth.csv` file to `score.py`:
 
 ```
 $ Rscript score.R Lung3-xgboost.csv.gz data/Lung3.csv.gz
@@ -33,7 +47,3 @@ Prediction Immune Stroma Tumor
 
 ...
 ```
-
-Intuitively, we would like a predictor to be more accurate on cells where we are more confident in our ground truth. Conversely, if we are uncertain that a given cell is noisy (based on marker expression), it would be unfair to penalize a morphology-based predictor that misclassifies this cell as Stroma or Immune. This is the intuition behind probability-based AUC metrics, which rank all cells according to the correpsonding posterior probability values and compute area under the ROC curve from the matching predictions.
-
-The remaining metrics are more standard and treat predictions and true labels as discrete class calls.
