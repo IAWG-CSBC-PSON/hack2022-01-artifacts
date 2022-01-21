@@ -3,7 +3,7 @@
 ## Challenge Description
 Multiplex images of tissue contain information on the gene expression, morphology, and spatial distribution of individual cells comprising biologically specialized niches. However, accurate extraction of cell-level features from pixel-level data is hindered by the presence of microscopy artifacts. Manual curation of noisy cell segmentation instances scales poorly with increasing dataset size, and methods capable of automated artifact detection are needed to enhance workflow efficiency, minimize curator burden, and mitigate human bias. In this challenge, participants will draw on classical and/or machine learning approaches to develop probabilistic classifiers for detecting cell segmentation instances corrupted by microscopy artifacts in multiplex images of tissue.
 
-![alt text](https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf)
+![alt text](https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.png)
 
 <!-- <object data="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="https://github.com/IAWG-CSBC-PSON/hack2022-01-artifacts.git/schematic.pdf">
