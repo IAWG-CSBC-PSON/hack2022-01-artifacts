@@ -43,7 +43,7 @@ Data files for the SARDANA-097 image plus manually curated quality control masks
 └───<b>tif</b>
 │   │   ReadMe.txt
 │   │   WD-76845-097.ome.tif
-<pre>
+</pre>
 
 * 40-channel OME-TIFF image file
 * single-cell feature table (CSV format) with the following columns:
