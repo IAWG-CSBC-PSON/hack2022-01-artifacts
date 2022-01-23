@@ -8,7 +8,7 @@ Multiplex images of tissue contain information on the gene expression, morpholog
 ## Data
 Test data for this challenge consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as SARDANA-097. This tissue (shown in the image above) was probed for 21 tumor, immune, and stromal markers over over 8 rounds of t-CyCIF. The MCMICRO multiple image processing pipeline was used to produce a stitched, registered, and segmented 40-channel OME-TIFF file file and corresponding single-cell data on the 1,242,756 cell segmentation instances comprising the tissue.
 
-Data files for the SARDANA-097 image plus manually curated quality control masks highlighting regions of the tissue affected by microscopy artifacts are available at the Sage Synapse data repository (Synapse ID: syn26848598) and consist of the following:
+Data files for the SARDANA-097 image plus manually curated quality control masks highlighting regions of the tissue affected by microscopy artifacts are available at the Sage Synapse data repository (Synapse ID: syn26848598) and are organized according to the following file structure:
 
 <pre>
 <b>01-artifacts</b>
@@ -45,7 +45,8 @@ Data files for the SARDANA-097 image plus manually curated quality control masks
 │   │   WD-76845-097.ome.tif
 </pre>
 
-* 40-channel OME-TIFF image file
+File descriptions:
+* `tif/WD-76845-097.ome.tif` 40-channel OME-TIFF image file
 * single-cell feature table (CSV format) with the following columns:
  * `CellID` - a unique identifier for each cell within the tissue
  * `Hoechst0` through `CollagenIV_647` - log10-transformed integrated signal intensities for each of 40 channels.  
