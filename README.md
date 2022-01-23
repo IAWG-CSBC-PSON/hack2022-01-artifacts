@@ -45,14 +45,14 @@ Data files for the SARDANA-097 image plus manually curated quality control masks
 │   │   WD-76845-097.ome.tif
 <pre>
 
-   * 40-channel OME-TIFF image file
-   * single-cell feature table (CSV format) with the following columns:
-     * `CellID` - a unique identifier for each cell within the tissue
-     * `Hoechst0` through `CollagenIV_647` - log10-transformed integrated signal intensities for each of 40 channels.  
-     * `X_centroid` and `Y_centroid` - spatial coordinates of cells in the tissue
-     * `Area` through `Orientation` - nuclear morphological features extracted from segmented cells
-   * cell segmentation mask indexed 0-n, where n is the number of segmented   cells in the tissue (1,242,756)
-   * quality control mask indexed 0-5 (0=unknown, 1=fluorescence aberration, 2=slide debris, 3=cover slip air bubble, 4=tissue detachment, 5=image blur)
+* 40-channel OME-TIFF image file
+* single-cell feature table (CSV format) with the following columns:
+ * `CellID` - a unique identifier for each cell within the tissue
+ * `Hoechst0` through `CollagenIV_647` - log10-transformed integrated signal intensities for each of 40 channels.  
+ * `X_centroid` and `Y_centroid` - spatial coordinates of cells in the tissue
+ * `Area` through `Orientation` - nuclear morphological features extracted from segmented cells
+* cell segmentation mask indexed 0-n, where n is the number of segmented   cells in the tissue (1,242,756)
+* quality control mask indexed 0-5 (0=unknown, 1=fluorescence aberration, 2=slide debris, 3=cover slip air bubble, 4=tissue detachment, 5=image blur)
 
 ## Requisite Output
 Classifier output must consist of a two-column CSV file of CellIDs and confidence scores (0-1) for whether each cell in the SARDANA-097 image is corrupted by a microscopy artifact.
