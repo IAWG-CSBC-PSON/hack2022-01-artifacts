@@ -11,10 +11,11 @@ Test data for this challenge consists of a single 1.6cm<sup>2</sup> section of p
 Data files for the SARDANA-097 image plus manually curated quality control masks highlighting regions of the tissue affected by microscopy artifacts are available at the Sage Synapse data repository (Synapse ID: syn26848598) and consist of the following:
 
 ```
+<pre>
 01-artifacts
 │   markers.csv    
 │
-└───**csv**
+└───<b>csv</b>
 │   │   ReadMe.txt
 │   │   unmicst-WD-76845-097_cellRing.csv
 │   
@@ -43,6 +44,7 @@ Data files for the SARDANA-097 image plus manually curated quality control masks
 └───**tif**
 │   │   ReadMe.txt
 │   │   WD-76845-097.ome.tif
+<pre>
 ```
 
    * 40-channel OME-TIFF image file
