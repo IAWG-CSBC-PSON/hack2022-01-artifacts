@@ -14,33 +14,33 @@ Data files for the SARDANA-097 image plus manually curated quality control masks
 01-artifacts
 │   markers.csv    
 │
-└───<b>sv</b>
+└───<b>csv</b>
 │   │   ReadMe.txt
 │   │   unmicst-WD-76845-097_cellRing.csv
 │   
-└───**cylinter_output**
+└───<b>cylinter_output</b>
 │   │
-│   └───**ROIs**
+│   └───<b>ROIs</b>
 │   │    │   polygon_dict.pkl
 │   │
-│   └───**checkpoints**
+│   └───<b>checkpoints</b>
 │   │    │   aggregateData.parquet
 │   │    │   selectROIs.parquet
 │
-└───**mask**
+└───<b>mask</b>
 │   │   ReadMe.txt
 │   │   cellRingMask.tif
 │
-└───**qc_masks**
+└───<b>qc_masks</b>
 │   │   ROI_table.CSV
 │   │   qcmask_cell.tif
 │   │   qcmask_pixel.tif
 │
-└───**seg**
+└───<b>seg</b>
 │   │   ReadMe.txt
 │   │   WD-76845-097.ome.tif
 │
-└───**tif**
+└───<b>tif</b>
 │   │   ReadMe.txt
 │   │   WD-76845-097.ome.tif
 <pre>
