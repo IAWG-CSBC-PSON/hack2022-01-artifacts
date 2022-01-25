@@ -52,13 +52,19 @@ File descriptions:
 * `mask/WD-76845-097.ome.tif`: cell segmentation mask
 * `qc/ROI_table.csv`: metadata for ROIs used to define multiple classes of artifacts
 * `qc/polygon_dict.pkl`: Python pickle file of ROI shape types (ellipse or polygon) and vertices. Order codeorresponds to ROI metadata in `qc/ROI_table.csv`
-* `qc/qcmask_cell.csv`: cell segmentation mask labeled by QC annotation: `0=background`, `1=clean`, `2=fluorescence aberration`, `3=slide debris`, `4=coverslip air bubble`, `5=uneven tissue staining`, `6=image blur`.  
+* `qc/qcmask_cell.csv`: cell segmentation mask labeled by QC annotation: 0=background, 1=clean, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven tissue staining, 6=image blur.  
 * `qc/qcmask_pixel.csv`: multiclass artifact ROI mask
-* `score/pr.py`: Python script for computing precision and recall binary classification predictions against ground truth labels (`score/truth.csv`)
+* `score/pr.py`: Python script for computing precision and recall binary classification predictions against ground truth labels (see `score/truth.csv` below)
 * `score/roc.py`: Python script for performing multiclass Receiver Operating Characteristic (ROC) curve analysis
 * `score/truth.csv`: multiclass ground truth annotations for 1,242,756 cells comprising the SARDANA-097 image
 * `seg/WD-76845-097.ome.tif`: cell segmentation outlines
 * `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF pyramid file containing t-CyCIF images for the SARDANA-097 image
+
+## Immunomarker Channels
+Although the SARDANA-097 dataset consists of 40 total channels, several represent signals from secondary antibodies alone (used to block non-specific antibody binding) or were otherwise deemed unsuitable for the purposes of this challenge When developing classifiers, please only use the following channels:
+
+`['Hoechst0', 'anti_CD3', 'anti_CD45RO', 'Keratin_570', 'aSMA_660', 'CD4_488', 'CD45_PE', 'PD1_647', 'CD20_488', 'CD68_555', 'CD8a_660', 'CD163_488', 'FOXP3_570', 'PDL1_647', 'Ecad_488', 'Vimentin_555', 'CDX2_647', 'LaminABC_488',
+'Desmin_555', 'CD31_647', 'PCNA_488', 'CollagenIV_647']`
 
 ## Expected Output
 Classifier output should consist of a CSV file containing probability scores for whether cells are clean (1) or affected by one of 5 artifact classes(2-6) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
