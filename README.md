@@ -6,11 +6,11 @@ Multiplex images of tissue contain information on the gene expression, morpholog
 ![](schematic.png)
 
 ## Data
-Test data for this challenge consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 different tumor, immune, and stromal markers over 8 rounds of t-CyCIF multiplex fluorescence imaging. This dataset, collected as part of the Human Tumor Atlas Network (HTAN), is referred to as SARDANA-097 image consists of a stitched, registered, and segmented 40-channel OME-TIFF pyramid file and corresponding single-cell data for 1,242,756 cells constituting the tissue.
+Test data for this challenge consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 different tumor, immune, and stromal markers over 8 rounds of t-CyCIF multiplex immunofluorescence imaging. The dataset was collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as SARDANA-097 image.
 
-Pixel and cell-level ground truth QC masks detailing multiple classes of microscopy artifacts affecting this multi-channel image have been manually curated and are provided for model training.
+Multiclass ground truth annotations detailing microscopy artifacts in the SARDNA-097 image have been previously curated and are provided for model training.
 
-All requisite data files for this challenge are available at the Sage Synapse data repository under Synapse ID syn26848598. The following data files are available:
+Requisite data files for this challenge are available at the Sage Synapse data repository under Synapse ID [syn26848598](https://www.synapse.org/#!Synapse:syn26848598). Available files are as follows:
 
 <pre>
 <b>01-artifacts</b>  
@@ -48,23 +48,23 @@ All requisite data files for this challenge are available at the Sage Synapse da
 
 File descriptions:
 * `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table (CSV format) containing cell IDs, spatial coordinates, integrated fluorescence signal intensities, and nuclear morphology features for 1,242,756 cells constituting the SARDANA-097 image
-* `markers/markers.csv`: channel-cycle-marker mapping for SARDANA-097 t-CyCIF image
-* `mask/WD-76845-097.ome.tif`: cell segmentation mask for SARDANA-097 image
-* `qc/ROI_table.csv`: ROI metadata for defining regions of tissue affected by different microscopy artifacts in the SARDANA-097 image
-* `qc/polygon_dict.pkl`: Python pickle file containing shape types (ellipse or polygon) and pixel coordinates of vertices defining artifact ROIs specified in `qc/ROI_table.csv`
-* `qc/qcmask_cell.csv`: multiclass QC annotations at the single-cell level
-* `qc/qcmask_pixel.csv`: multiclass QC annotations at the pixel level
-* `score/pr.py`: Python script for computing precision and recall on binary classification relative to ground truth labels (`score/truth.csv`)
+* `markers/markers.csv`: channel-cycle-marker mapping
+* `mask/WD-76845-097.ome.tif`: cell segmentation mask
+* `qc/ROI_table.csv`: metadata for ROIs used to define multiple classes of artifacts
+* `qc/polygon_dict.pkl`: Python pickle file of ROI shape types (ellipse or polygon) and vertices. Order codeorresponds to ROI metadata in `qc/ROI_table.csv`
+* `qc/qcmask_cell.csv`: cell segmentation mask labeled by QC annotation: `0=background`, `1=clean`, `2=fluorescence aberration`, `3=slide debris`, `4=coverslip air bubble`, `5=uneven tissue staining`, `6=image blur`.  
+* `qc/qcmask_pixel.csv`: multiclass artifact ROI mask
+* `score/pr.py`: Python script for computing precision and recall binary classification predictions against ground truth labels (`score/truth.csv`)
 * `score/roc.py`: Python script for performing multiclass Receiver Operating Characteristic (ROC) curve analysis
-* `score/truth.csv`: Table of multiclass ground truth annotations for classification relative to ground truth labels for 1,242,756 cells comprising the SARDANA-097 image
-* `seg/WD-76845-097.ome.tif`: cell segmentation outlines for the SARDANA-097 image
-* `tif/WD-76845-097.ome.tif`: 40-channel, OME-TIFF pyramid file for the SARDANA-097 image
+* `score/truth.csv`: multiclass ground truth annotations for 1,242,756 cells comprising the SARDANA-097 image
+* `seg/WD-76845-097.ome.tif`: cell segmentation outlines
+* `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF pyramid file containing t-CyCIF images for the SARDANA-097 image
 
 ## Expected Output
-Classifier output will consist of CSV data tables consisting of probability scores for whether each cell comprising the SARDANA-097 image (1,242,756) is corrupted by one of 6 classes (1=clean; 2-6=one of multiple artifact classes) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
+Classifier output should consist of a CSV file containing probability scores for whether cells are clean (1) or affected by one of 5 artifact classes(2-6) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
 
 ## Performance Evaluation
-Multiclass classifier predictions will be scored relative to ground truth annotations using a combination of Receiver operating characteristic (ROC) curve analysis and binary performance metrics precision and recall using the following scripts: `pr.py` and `roc.py`.
+Multiclass classifier predictions will be scored against ground truth annotations using a combination of Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the following scripts: `pr.py` and `roc.py`.
 
 ```
 $ python roc.py  multiclass.csv truth.csv
@@ -74,6 +74,7 @@ $ python roc.py  multiclass.csv truth.csv
 
 ```
 $ python pr.py pred.csv truth.csv
+
 precision=0.78, recall=0.67
 ```
 
