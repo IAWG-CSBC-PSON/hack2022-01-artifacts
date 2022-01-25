@@ -61,7 +61,7 @@ File descriptions:
 * `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF pyramid file containing t-CyCIF images for the SARDANA-097 image
 
 ## Target Immunomarker Channels
-Although the SARDANA-097 dataset consists of 40 total channels, several represent signals from secondary antibodies alone (used to block non-specific antibody binding) or were otherwise deemed unsuitable for the purposes of this challenge When developing classifiers, please only use the following channels:
+Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were used in the curation of microscopy artifacts, as several channels represented signals from secondary antibodies alone (used to block non-specific antibody binding) or were otherwise determined to be unsuitable for the purposes of this challenge. When developing classifiers, please use the following channels:
 
 ```
 'Hoechst0', 'anti_CD3', 'anti_CD45RO', 'Keratin_570', 'aSMA_660', 'CD4_488', 'CD45_PE', 'PD1_647', 'CD20_488', 'CD68_555', 'CD8a_660', 'CD163_488', 'FOXP3_570', 'PDL1_647', 'Ecad_488', 'Vimentin_555', 'CDX2_647', 'LaminABC_488',
@@ -70,6 +70,16 @@ Although the SARDANA-097 dataset consists of 40 total channels, several represen
 
 ## Expected Output
 Classifier output should consist of a CSV file containing probability scores for whether cells are clean (1) or affected by one of 5 artifact classes(2-6) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
+
+```
+CellID,1,2,3,4,5,6
+1,0.95,0.23,0.14,0.05,0.39,0.21
+2,0.10,0.09,0.56,0.67,0.89,0.01
+3,0.03,0.28,0.22,0.17,0.42,0.91
+.
+.
+.
+```
 
 ## Performance Evaluation
 Multiclass classifier predictions will be scored against ground truth annotations using a combination of Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the following scripts: `pr.py` and `roc.py`.
