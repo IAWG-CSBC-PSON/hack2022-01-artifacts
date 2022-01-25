@@ -60,11 +60,13 @@ File descriptions:
 * `seg/WD-76845-097.ome.tif`: cell segmentation outlines
 * `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF pyramid file containing t-CyCIF images for the SARDANA-097 image
 
-## Immunomarker Channels
+## Target Immunomarker Channels
 Although the SARDANA-097 dataset consists of 40 total channels, several represent signals from secondary antibodies alone (used to block non-specific antibody binding) or were otherwise deemed unsuitable for the purposes of this challenge When developing classifiers, please only use the following channels:
 
-`['Hoechst0', 'anti_CD3', 'anti_CD45RO', 'Keratin_570', 'aSMA_660', 'CD4_488', 'CD45_PE', 'PD1_647', 'CD20_488', 'CD68_555', 'CD8a_660', 'CD163_488', 'FOXP3_570', 'PDL1_647', 'Ecad_488', 'Vimentin_555', 'CDX2_647', 'LaminABC_488',
-'Desmin_555', 'CD31_647', 'PCNA_488', 'CollagenIV_647']`
+```
+'Hoechst0', 'anti_CD3', 'anti_CD45RO', 'Keratin_570', 'aSMA_660', 'CD4_488', 'CD45_PE', 'PD1_647', 'CD20_488', 'CD68_555', 'CD8a_660', 'CD163_488', 'FOXP3_570', 'PDL1_647', 'Ecad_488', 'Vimentin_555', 'CDX2_647', 'LaminABC_488',
+'Desmin_555', 'CD31_647', 'PCNA_488', 'CollagenIV_647'
+```
 
 ## Expected Output
 Classifier output should consist of a CSV file containing probability scores for whether cells are clean (1) or affected by one of 5 artifact classes(2-6) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
