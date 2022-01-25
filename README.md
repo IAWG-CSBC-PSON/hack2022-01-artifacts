@@ -68,8 +68,8 @@ Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were 
 'Desmin_555', 'CD31_647', 'PCNA_488', 'CollagenIV_647'
 ```
 
-## Expected Output
-Classifier output should consist of a CSV file containing probability scores for whether cells are clean (1) or affected by one of 5 artifact classes(2-6) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
+## Classifier Output
+Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether a cell is clean (1) or affected by one of 5 classes of artifacts (2-6).
 
 ```
 CellID,1,2,3,4,5,6
