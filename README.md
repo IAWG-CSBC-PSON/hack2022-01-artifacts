@@ -1,6 +1,6 @@
 # Automated Detection of Microscopy Artifacts
 
-## Challenge Description
+## Description
 Multiplex images of tissue contain information on the gene expression, morphology, and spatial distribution of individual cells comprising biologically specialized niches. However, accurate extraction of cell-level features from pixel-level data is hindered by the presence of microscopy artifacts. Manual curation of noisy cell segmentation instances scales poorly with increasing dataset size, and methods capable of automated artifact detection are needed to enhance workflow efficiency, minimize curator burden, and mitigate human bias. In this challenge, participants will draw on classical and/or machine learning approaches to develop probabilistic classifiers for detecting cell segmentation instances in multiplex images of tissue corrupted by microscopy artifacts.
 
 ![](schematic.png)
@@ -54,23 +54,16 @@ File descriptions:
 Classifiers should output a two-column CSV file of CellIDs and corresponding probability scores (0-1) for whether a cell is corrupted by a microscopy artifact.
 
 ## Performance Evaluation
-Classifier predictions will be scored relative to ground truth annotations using Receiver operating characteristic (ROC) curve analysis by providing CSV files of probability scores and ground truth annotations (`truth.csv`) file to the script `score.py`:
+Classifier predictions will be scored relative to ground truth annotations using multi-class Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall by providing 2-column CSV tables with headers `CellID` and `class_label` and ground truth annotations (`truth.csv`) to the scripts `pr.py` and `roc.py`:
 
 ```
-$ Rscript score.R Lung3-xgboost.csv.gz data/Lung3.csv.gz
-Probability-based AUC values
+$ python binary_pr.py truth.csv prediction.csv
 
-Probability-based AUC for Immune : 0.6778014
-Probability-based AUC for Stroma : 0.7163537
-Probability-based AUC for  Tumor : 0.7331163
-
-Confusion Matrix and Statistics
-
-          Reference
-Prediction Immune Stroma Tumor
-    Immune  53953  19481 13484
-    Stroma   3792   6920  1600
-    Tumor    3508   1492  6333
-
-...
+precision=1.0, recall=1.0
 ```
+
+## Requisite Computational Resources
+* High-level programming language (e.g. Python (ideal), R, Julia)
+* libraries for reading/writing TIFF image files (e.g. `tifffile`, `skimage`)
+* software libraries for machine learning and artificial intelligence (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`)
+* access to a GPU
