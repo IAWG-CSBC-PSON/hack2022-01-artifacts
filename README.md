@@ -51,19 +51,20 @@ File descriptions:
 * `qc_masks/polygon_dict.pkl`: Python pickle file containing shape types (ellipse/polygon) and vertice coordinates for ROIs specified in `qc_masks/ROI_table.csv`.  
 
 ## Output
-Classifiers should output a two-column CSV file of CellIDs and corresponding probability scores (0-1) for whether a cell is corrupted by a microscopy artifact.
+Classifiers should output a two-column CSV file of `CellIDs` and `class_labels` and corresponding probability scores (0-1) for whether a cell is corrupted by a microscopy artifact.
 
 ## Performance Evaluation
-Classifier predictions will be scored relative to ground truth annotations using multi-class Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall by providing 2-column CSV tables with headers `CellID` and `class_label` and ground truth annotations (`truth.csv`) to the scripts `pr.py` and `roc.py`:
+Multiclass classifier predictions will be scored relative to ground truth annotations using Receiver operating characteristic (ROC) curve analysis. Binary performance metrics of precision and recall will also be used to in performance evaluation. by providing 2-column CSV tables with headers `CellID` and `class_label` and ground truth annotations (`truth.csv`) to the scripts `pr.py` and `roc.py`:
 
 ```
-$ python binary_pr.py truth.csv prediction.csv
+$ python binary_pr.py truth.csv pred.csv
 
-precision=1.0, recall=1.0
+precision=0.78, recall=0.67
 ```
 
-## Requisite Computational Resources
+## Requisite Computational Resources and Software Packages
 * High-level programming language (e.g. Python (ideal), R, Julia)
-* libraries for reading/writing TIFF image files (e.g. `tifffile`, `skimage`)
-* software libraries for machine learning and artificial intelligence (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`)
+* Standard data analysis software libraries (e.g. `pandas`, `numpy`, `scipy`)
+* Libraries for reading, writing, analyzing, and visualizing multi-channel image data (e.g. `tifffile`, `skimage`, `matplotlib`, `napari`)
+* Machine learning and artificial intelligence libraries (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`)
 * access to a GPU
