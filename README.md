@@ -26,9 +26,14 @@ All requisite data files for this challenge are available at the Sage Synapse da
 │
 └───<b>qc_masks</b>
 │   │   ROI_table.csv
+│   │   polygon_dict.pkl
 │   │   qcmask_cell.tif
 │   │   qcmask_pixel.tif
-│   │   polygon_dict.pkl
+│
+└───<b>score</b>
+│   │   pr.py
+│   │   roc.py
+│   │   truth.csv
 │
 └───<b>seg</b>
 │   │   ReadMe.txt
@@ -64,7 +69,7 @@ precision=0.78, recall=0.67
 
 ![](roc.png)
 
-## Requisite Computational Resources and Software Packages
+## Suggested Computational Resources and Software Packages
 * High-level programming language (e.g. Python (ideal), R, Julia)
 * Standard data analysis software libraries (e.g. `pandas`, `numpy`, `scipy`)
 * Libraries for reading, writing, analyzing, and visualizing multi-channel image data (e.g. `tifffile`, `skimage`, `matplotlib`, `napari`)
