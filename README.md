@@ -13,12 +13,14 @@ Pixel and cell-level ground truth QC masks detailing multiple classes of microsc
 All requisite data files for this challenge are available at the Sage Synapse data repository under Synapse ID syn26848598. The following data files are available:
 
 <pre>
-<b>01-artifacts</b>
-│   markers.csv    
+<b>01-artifacts</b>  
 │
 └───<b>csv</b>
 │   │   ReadMe.txt
 │   │   unmicst-WD-76845-097_cellRing.csv
+│
+└───<b>markers</b>
+│   │   markers.csv
 │
 └───<b>mask</b>
 │   │   ReadMe.txt
@@ -45,33 +47,39 @@ All requisite data files for this challenge are available at the Sage Synapse da
 </pre>
 
 File descriptions:
-* `markers.csv`: channel-to-marker mapping for 40 imaging channels across 10 rounds of t-CyCIF.
-* `tif/WD-76845-097.ome.tif`: 40-channel OME-TIFF pyramid file for the SARDANA-097 dataset.
-* `mask/WD-76845-097.ome.tif`: cell segmentation mask for the SARDANA-097 dataset.
-* `seg/WD-76845-097.ome.tif`: cell segmentation outlines (boundaries) for the SARDANA-097 dataset.
-* `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table (CSV format) containing cell IDs, spatial coordinates, integrated fluorescence signal intensities, and nuclear morphology features for 1,242,756 cells constituting the SARDANA-097 image.
-* `qc_masks/ROI_table.csv`: ROI metadata file
-* `qc_masks/qcmask_cell.csv`: multi-class QC mask annotated at the single-cell level
-* `qc_masks/qcmask_pixel.csv`: multi-class QC mask annotated at the single-cell level
-* `qc_masks/polygon_dict.pkl`: Python pickle file containing shape types (ellipse/polygon) and vertice coordinates for ROIs specified in `qc_masks/ROI_table.csv`.  
+* `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table (CSV format) containing cell IDs, spatial coordinates, integrated fluorescence signal intensities, and nuclear morphology features for 1,242,756 cells constituting the SARDANA-097 image
+* `markers/markers.csv`: channel-cycle-marker mapping for SARDANA-097 t-CyCIF image
+* `mask/WD-76845-097.ome.tif`: cell segmentation mask for SARDANA-097 image
+* `qc/ROI_table.csv`: ROI metadata for defining regions of tissue affected by different microscopy artifacts in the SARDANA-097 image
+* `qc/polygon_dict.pkl`: Python pickle file containing shape types (ellipse or polygon) and pixel coordinates of vertices defining artifact ROIs specified in `qc/ROI_table.csv`
+* `qc/qcmask_cell.csv`: multiclass QC annotations at the single-cell level
+* `qc/qcmask_pixel.csv`: multiclass QC annotations at the pixel level
+* `score/pr.py`: Python script for computing precision and recall on binary classification relative to ground truth labels (`score/truth.csv`)
+* `score/roc.py`: Python script for performing multiclass Receiver Operating Characteristic (ROC) curve analysis
+* `score/truth.csv`: Table of multiclass ground truth annotations for classification relative to ground truth labels for 1,242,756 cells comprising the SARDANA-097 image
+* `seg/WD-76845-097.ome.tif`: cell segmentation outlines for the SARDANA-097 image
+* `tif/WD-76845-097.ome.tif`: 40-channel, OME-TIFF pyramid file for the SARDANA-097 image
 
-## Output
-Classifiers should output a two-column CSV file of `CellIDs` and `class_labels` and corresponding probability scores (0-1) for whether a cell is corrupted by a microscopy artifact.
+## Expected Output
+Classifier output will consist of CSV data tables consisting of probability scores for whether each cell comprising the SARDANA-097 image (1,242,756) is corrupted by one of 6 classes (1=clean; 2-6=one of multiple artifact classes) along with their Cell IDs. Column headers should be formatted as follows: `CellID`, `1`, `2`, `3`, `4`, `5`, `6`.
 
 ## Performance Evaluation
-Multiclass classifier predictions will be scored relative to ground truth annotations using Receiver operating characteristic (ROC) curve analysis. Binary performance metrics of precision and recall will also be used to in performance evaluation. by providing 2-column CSV tables with headers `CellID` and `class_label` and ground truth annotations (`truth.csv`) to the scripts `pr.py` and `roc.py`:
+Multiclass classifier predictions will be scored relative to ground truth annotations using a combination of Receiver operating characteristic (ROC) curve analysis and binary performance metrics precision and recall using the following scripts: `pr.py` and `roc.py`.
 
 ```
-$ python binary_pr.py truth.csv pred.csv
-
-precision=0.78, recall=0.67
+$ python roc.py  multiclass.csv truth.csv
 ```
 
 ![](roc.png)
 
+```
+$ python pr.py pred.csv truth.csv
+precision=0.78, recall=0.67
+```
+
 ## Suggested Computational Resources and Software Packages
-* High-level programming language (e.g. Python (ideal), R, Julia)
-* Standard data analysis software libraries (e.g. `pandas`, `numpy`, `scipy`)
-* Libraries for reading, writing, analyzing, and visualizing multi-channel image data (e.g. `tifffile`, `skimage`, `matplotlib`, `napari`)
-* Machine learning and artificial intelligence libraries (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`)
+* High-level programming language (Python is recommended)
+* Data analysis software libraries such as `pandas`, `numpy`, `scipy`
+* Software libraries for reading, writing, analyzing, and visualizing multi-channel image files such as `tifffile`, `skimage`, `matplotlib`, `napari`
+* Machine learning and artificial intelligence libraries such as `scikit-learn`, `tensorflow`, `keras`, `pytorch`
 * access to a GPU
