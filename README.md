@@ -62,6 +62,8 @@ $ python binary_pr.py truth.csv pred.csv
 precision=0.78, recall=0.67
 ```
 
+![](roc.png)
+
 ## Requisite Computational Resources and Software Packages
 * High-level programming language (e.g. Python (ideal), R, Julia)
 * Standard data analysis software libraries (e.g. `pandas`, `numpy`, `scipy`)
