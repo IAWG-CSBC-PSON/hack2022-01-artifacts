@@ -60,7 +60,7 @@ File descriptions:
 * `seg/WD-76845-097.ome.tif`: cell segmentation outlines
 * `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF pyramid file containing t-CyCIF images for the SARDANA-097 image
 
-## Target Immunomarker Channels
+## Target Channels
 Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were used in the curation of microscopy artifacts, as several channels represented signals from secondary antibodies alone (used to block non-specific antibody binding) or were otherwise determined to be unsuitable for the purposes of this challenge. When developing classifiers, please use the following channels:
 
 ```
@@ -69,7 +69,7 @@ Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were 
 ```
 
 ## Classifier Output
-Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether a cell is clean (1) or affected by one of 5 classes of artifacts (2-6).
+Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether cells are clean (1) or affected by one of 5 classes of artifacts (2-6).
 
 ```
 CellID,1,2,3,4,5,6
