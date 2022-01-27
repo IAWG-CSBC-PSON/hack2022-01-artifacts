@@ -118,5 +118,5 @@ $ pip install -r requirements.txt  # Install software packages from "requirement
 ```
 
 ## Team Check-in Times (all times US EST)
-10am & 3pm each day
-* Ping Slack channel # 01-artifacts as needed.
+10am & 3pm each day at Zoom link: https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09
+* Ping Slack channel #01-artifacts as needed.
