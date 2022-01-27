@@ -98,14 +98,14 @@ $ python pr.py pred_binary.csv truth_binary.csv
 precision=0.78, recall=0.67
 ```
 
-## Food for Thought
+## Considerations
 1. Ground truth labels can themselves be inaccurate. How might classifiers be trained to be become robust to misclassified artifacts, false positives (artifact-free cells inadvertently classified as noisy), or false negatives (artifacts which have gone unannotated)?
 
 2. Are pixel-level classifiers superior to those developed using derived single-cell data (i.e. feature tables)? What about models that integrate information at both the pixel and cell levels?
 
 ## Suggested Computational Resources and Software Packages
-* High-level programming language: Python 3 is recommended
-* Recommended software packages include data analysis libraries such as `pandas`, `numpy`, and `scipy`; libraries for reading, writing, analyzing, and visualizing multi-channel TIFF files including `tifffile`, `skimage`, `matplotlib`, `napari`, `scikit-learn`; and various machine learning and artificial intelligence libraries such as `tensorflow`, `keras`, and `pytorch`. If using Python 3, all of the aforementioned libraries can be installed in a clean Python virtual environment dedicated to this hackathon challenge by running the following commands:
+* A high-level programming language (Python 3 is recommended)
+* Software packages including data analysis libraries such as `pandas`, `numpy`, and `scipy`; libraries for reading, writing, analyzing, and visualizing multi-channel TIFF files like `tifffile`, `skimage`, `matplotlib`, `napari`, `scikit-learn`; and various machine learning and artificial intelligence libraries such as `tensorflow`, `keras`, and `pytorch`. If using Python 3, the aforementioned libraries can all be installed at once in a clean Python virtual environment dedicated to this project by running the following commands:
 ```
 $ python3 -m venv ~/artifacts  # Creates a new Python virtual environment
 $ source ~/artifacts/bin/activate  # Step into the new virtual environment
@@ -116,4 +116,4 @@ $ pip install -r requirements.txt  # Install software packages from "requirement
 Virtual check-ins will occur daily at 10am & 3pm at the following Zoom link:
 * https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09.
 
-For questions outside of these times, please post to the #01-artifacts Slack channel.
+For questions outside of dedicated check-in times, please post to the #01-artifacts Slack channel.
