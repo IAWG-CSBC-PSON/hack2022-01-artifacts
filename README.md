@@ -72,7 +72,7 @@ Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were 
 Examples of artifact classes found in the SARDANA-097 image:
 
 ![](images/artifacts.png)
-Classes 0 and 1 correspond to image background and artifact-free cells, respectively.
+* Classes 0 and 1 correspond to image background and artifact-free cells, respectively.
 
 ## Classifier Output
 Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether cells are clean (1) or affected by one of 5 classes of artifacts (2-6).
@@ -103,8 +103,11 @@ precision=0.78, recall=0.67
 ```
 
 ## Suggested Computational Resources and Software Packages
-* High-level programming language (Python is recommended)
-* Data analysis software libraries such as `pandas`, `numpy`, `scipy`
-* Software libraries for reading, writing, analyzing, and visualizing multi-channel image files such as `tifffile`, `skimage`, `matplotlib`, `napari`
-* Machine learning and artificial intelligence libraries such as `scikit-learn`, `tensorflow`, `keras`, `pytorch`
+* High-level programming language (Python 3 is recommended)
 * access to a GPU
+* Recommended software packages for this Hackathon challenge include data analysis libraries such as `pandas`, `numpy`, and `scipy`, libraries for reading, writing, analyzing, and visualizing multi-channel TIFF files including `tifffile`, `skimage`, `matplotlib`, `napari`, `scikit-learn`, and various machine learning and artificial intelligence libraries such as `tensorflow`, `keras`, `pytorch`. All of these librbaries can be installed in a clean Python virtual environment by running the following commands:
+```
+$ python3 -m venv ~/artifacts  # Create fresh Python virtual environment
+$ source ~/artifacts/bin/activate  # Step into virtual environment
+$ pip install -r requirements.txt  # Install recommended software packages
+```
