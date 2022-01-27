@@ -105,9 +105,9 @@ precision=0.78, recall=0.67
 ## Suggested Computational Resources and Software Packages
 * High-level programming language (Python 3 is recommended)
 * access to a GPU
-* Recommended software packages for this Hackathon challenge include data analysis libraries such as `pandas`, `numpy`, and `scipy`, libraries for reading, writing, analyzing, and visualizing multi-channel TIFF files including `tifffile`, `skimage`, `matplotlib`, `napari`, `scikit-learn`, and various machine learning and artificial intelligence libraries such as `tensorflow`, `keras`, `pytorch`. All of these librbaries can be installed in a clean Python virtual environment by running the following commands:
+* Recommended software packages for this Hackathon challenge include data analysis libraries such as `pandas`, `numpy`, and `scipy`, libraries for reading, writing, analyzing, and visualizing multi-channel TIFF files including `tifffile`, `skimage`, `matplotlib`, `napari`, `scikit-learn`, and various machine learning and artificial intelligence libraries such as `tensorflow`, `keras`, `pytorch`. All of these librbaries can be installed in a Python virtual environment dedicated to this project by running the following commands:
 ```
-$ python3 -m venv ~/artifacts  # Create fresh Python virtual environment
-$ source ~/artifacts/bin/activate  # Step into virtual environment
-$ pip install -r requirements.txt  # Install recommended software packages
+$ python3 -m venv ~/artifacts  # Creates a clean Python virtual environment
+$ source ~/artifacts/bin/activate  # Step into the newly created virtual environment
+$ pip install -r requirements.txt  # Install recommended software packages from provided "requirements.txt" file
 ```
