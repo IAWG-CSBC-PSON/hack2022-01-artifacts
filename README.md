@@ -113,4 +113,7 @@ $ pip install -r requirements.txt  # Install software packages from "requirement
 ```
 
 ## Team Check-in Times (all times US EST)
-Virtual check-ins will occur daily at 10am & 3pm at the following Zoom link: https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09. For questions outside of these times, please use the Slack #01-artifacts channel as needed.
+Virtual check-ins will occur daily at 10am & 3pm at the following Zoom link:
+* https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09.
+
+For questions outside of these times, please use the Slack #01-artifacts channel as needed.
