@@ -87,11 +87,6 @@ CellID,1,2,3,4,5,6
 .
 ```
 
-## Considerations:
-1. Ground truth labels can themselves be inaccurate. How might misclassified or missed artifacts be captured by automated classifiers?
-
-2. Does pixel-level predication alone or in combination with single-cell features superior in predicting artifacts compared to single-cell features alone?
-
 ## Performance Evaluation
 Multiclass classifier predictions will be scored against ground truth annotations using a combination of Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the following scripts: `pr.py` and `roc.py`.
 
@@ -107,6 +102,11 @@ $ python pr.py pred.csv truth.csv
 precision=0.78, recall=0.67
 ```
 
+## Questions to Consider:
+1. Ground truth labels can themselves be inaccurate. How might misclassified or missed artifacts be captured by automated classifiers?
+
+2. Does pixel-level predication alone or in combination with single-cell features superior in predicting artifacts compared to single-cell features alone?
+
 ## Suggested Computational Resources and Software Packages
 * High-level programming language (Python 3 is recommended)
 * access to a GPU
@@ -119,4 +119,4 @@ $ pip install -r requirements.txt  # Install software packages from "requirement
 
 ## Team Check-in Times (all times US EST)
 10am & 3pm each day
-* Slack #01-artifacts Slack channel upon request
+* Ping Slack channel # 01-artifacts as needed.
