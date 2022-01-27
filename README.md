@@ -109,5 +109,5 @@ precision=0.78, recall=0.67
 ```
 $ python3 -m venv ~/artifacts  # Creates a clean Python virtual environment
 $ source ~/artifacts/bin/activate  # Step into the newly created virtual environment
-$ pip install -r requirements.txt  # Install recommended software packages from provided "requirements.txt" file
+$ pip install -r requirements.txt  # Install software packages from "requirements.txt" file
 ```
