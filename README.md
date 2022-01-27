@@ -3,7 +3,7 @@
 ## Description
 Multiplex images of tissue contain information on the gene expression, morphology, and spatial distribution of individual cells comprising biologically specialized niches. However, accurate extraction of cell-level features from pixel-level data is hindered by the presence of microscopy artifacts. Manual curation of noisy cell segmentation instances scales poorly with increasing dataset size, and methods capable of automated artifact detection are needed to enhance workflow efficiency, minimize curator burden, and mitigate human bias. In this challenge, participants will draw on classical and/or machine learning approaches to develop probabilistic classifiers for detecting cell segmentation instances in multiplex images of tissue corrupted by microscopy artifacts.
 
-![](schematic.png)
+![](images/schematic.png)
 
 ## Data
 Test data for this challenge consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 different tumor, immune, and stromal markers over 8 rounds of t-CyCIF multiplex immunofluorescence imaging. The dataset was collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as SARDANA-097 image.
@@ -68,6 +68,11 @@ Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were 
 'Desmin_555', 'CD31_647', 'PCNA_488', 'CollagenIV_647'
 ```
 
+## Artifact Classes
+Examples of 5 microscopy artifact classes found in the SARDANA-097 image:
+
+![](images/schematic.png)
+
 ## Classifier Output
 Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether cells are clean (1) or affected by one of 5 classes of artifacts (2-6).
 
@@ -88,7 +93,7 @@ Multiclass classifier predictions will be scored against ground truth annotation
 $ python roc.py  multiclass.csv truth.csv
 ```
 
-![](roc.png)
+![](images/roc.png)
 
 ```
 $ python pr.py pred.csv truth.csv
