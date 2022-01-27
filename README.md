@@ -69,9 +69,10 @@ Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were 
 ```
 
 ## Artifact Classes
-Examples of 5 microscopy artifact classes found in the SARDANA-097 image:
+Examples of artifact classes found in the SARDANA-097 image:
 
 ![](images/artifacts.png)
+Classes 0 and 1 correspond to image background and artifact-free cells, respectively.
 
 ## Classifier Output
 Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether cells are clean (1) or affected by one of 5 classes of artifacts (2-6).
