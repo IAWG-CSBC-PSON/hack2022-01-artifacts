@@ -89,7 +89,7 @@ $ python roc.py  pred_multiclass.csv truth_multiclass.csv
 ```
 
 <!-- ![](images/roc.png) -->
-<img src="images/roc.png" alt="drawing" width="200"/>
+<img src="images/roc.png" alt="drawing" width="800"/>
 
 To score binarized classifier predictions using metrics of precision and recall, pass binary predictions (0=clean, 1=artifact) and `qc/truth_binary.csv` to `score/pr.py` as follows:
 
