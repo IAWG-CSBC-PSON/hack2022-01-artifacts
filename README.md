@@ -66,7 +66,7 @@ Examples of different artifact classes found in the SARDANA-097 image:
 ![](images/artifacts.png)
 
 ## Classifier Output
-The output of each classifier should consist of a CSV file consisting of a column labeled Cell IDs followed by those labeled 0-6 containing probability scores for each class.
+The output of each classifier should consist of a CSV file consisting of cell IDs and probability scores for each of 6 classes (1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur):
 
 ```
 CellID,1,2,3,4,5,6
@@ -77,12 +77,12 @@ CellID,1,2,3,4,5,6
 .
 .
 ```
-* Cell IDs can be found in both `csv/unmicst-WD-76845-097_cellRing.csv` and `mask/WD-76845-097.ome.tif`. A mapping of cell ID to cell class can be found in `qc/truth.csv`.
+* Cell IDs can be found in `csv/unmicst-WD-76845-097_cellRing.csv` and `mask/WD-76845-097.ome.tif`. A mapping of cell IDs to cell classes can be found in `qc/truth.csv`.
 
 ## Performance Evaluation
-Classifier predictions will be scored against ground truth annotations `qc/truth.csv` using a combination of multiclass Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the Python scripts `score/score/roc.py` and `score/pr.py`.
+Classifier predictions will be scored against ground truth annotations `qc/truth_multiclass.csv` and `qc/truth_binary.csv` using a combination of multiclass Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the following Python scripts: `score/roc.py` and `score/pr.py`.
 
-To score classifier predictions by multiclass Receiver Operating Characteristic (ROC) curve analysis, run:
+To score classifier predictions by multiclass Receiver Operating Characteristic (ROC) curve analysis, pass multiclass predictions formatted as in the "Classifier Output" section above and `qc/truth_multiclass.csv` to `score/roc.py` as follows:
 
 ```
 $ python roc.py  pred_multiclass.csv truth_multiclass.csv
@@ -90,7 +90,7 @@ $ python roc.py  pred_multiclass.csv truth_multiclass.csv
 
 ![](images/roc.png)
 
-To score binarized classifier predictions (0=clean, 1=artifact) using metrics of precision and recall, run:
+To score binarized classifier predictions using metrics of precision and recall, pass binary predictions (0=clean, 1=artifact) and `qc/truth_binary.csv` to `score/pr.py` as follows:
 
 ```
 $ python pr.py pred_binary.csv truth_binary.csv
@@ -98,10 +98,10 @@ $ python pr.py pred_binary.csv truth_binary.csv
 precision=0.78, recall=0.67
 ```
 
-## Questions to Bear in Mind:
-1. Ground truth labels can themselves be inaccurate. How might classifiers be trained to be robust to misclassified artifacts or false negatives (artifacts that have gone unnoticed)?
+## Food for Thought
+1. Ground truth labels can themselves be inaccurate. How might classifiers be trained to be become robust to misclassified artifacts, false positives (artifact-free cells inadvertently classified as noisy), or false negatives (artifacts which have gone unannotated)?
 
-2. Are classifiers developed on pixel-level data superior to those trained on image-derived single-cell feature tables? What models trained on both pixel- and cell-level data?
+2. Are pixel-level classifiers superior to those developed using derived single-cell data (i.e. feature tables)? What about models that integrate information at both the pixel and cell levels?
 
 ## Suggested Computational Resources and Software Packages
 * High-level programming language: Python 3 is recommended
