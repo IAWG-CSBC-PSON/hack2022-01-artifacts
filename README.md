@@ -72,10 +72,10 @@ Although the SARDANA-097 dataset comprises a total of 40 channels, only 21 were 
 Examples of artifact classes found in the SARDANA-097 image:
 
 ![](images/artifacts.png)
-* Classes 0 and 1 correspond to image background and artifact-free cells, respectively.
+* Note: classes 0 and 1 correspond to image background and artifact-free cells, respectively.
 
 ## Classifier Output
-Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether cells are clean (1) or affected by one of 5 classes of artifacts (2-6).
+Classifier output should consist of a 7-column CSV file containing Cell IDs and probability scores for whether cells are clean (1) or affected by one of 5 classes of artifacts (2-6). Cell IDs for pixel-level classifiers can be obtained by indexing the cell-level QC mask `qc/qcmask_cell.csv` against the cell segmentation mask `mask/WD-76845-097.ome.tif`.
 
 ```
 CellID,1,2,3,4,5,6
@@ -86,6 +86,11 @@ CellID,1,2,3,4,5,6
 .
 .
 ```
+
+## Considerations:
+1. Ground truth labels can themselves be inaccurate. How might misclassified or missed artifacts be captured by automated classifiers?
+
+2. Does pixel-level predication alone or in combination with single-cell features superior in predicting artifacts compared to single-cell features alone?
 
 ## Performance Evaluation
 Multiclass classifier predictions will be scored against ground truth annotations using a combination of Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the following scripts: `pr.py` and `roc.py`.
@@ -111,3 +116,7 @@ $ python3 -m venv ~/artifacts  # Creates a clean Python virtual environment
 $ source ~/artifacts/bin/activate  # Step into the newly created virtual environment
 $ pip install -r requirements.txt  # Install software packages from "requirements.txt" file
 ```
+
+## Team Check-in Times (all times US EST)
+10am & 3pm each day
+* Slack #01-artifacts Slack channel upon request
