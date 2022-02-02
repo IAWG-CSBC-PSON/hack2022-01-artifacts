@@ -63,12 +63,12 @@ The SARDANA-097 image comprises a total of 40 channels. However, artifacts were 
 ```
 
 ## Artifact Classes
-Examples of different artifact classes found in the SARDANA-097 image:
+Examples of different types of artifacts in the SARDANA-097 image:
 
 ![](images/artifacts.png)
 
 ## Classifier Output
-The output of each classifier should consist of a CSV file consisting of cell IDs and probability scores for each of 6 classes (1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur):
+Classifier output should consist of a CSV file containing probability scores for each of 6 classes of cells: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur and be formatted as follows:
 
 ```
 CellID,1,2,3,4,5,6
@@ -79,20 +79,11 @@ CellID,1,2,3,4,5,6
 .
 .
 ```
-* Cell IDs can be found in `csv/unmicst-WD-76845-097_cellRing.csv` and `mask/WD-76845-097.ome.tif`. A mapping of cell IDs to cell classes can be found in `qc/truth.csv`.
 
 ## Performance Evaluation
-Classifier predictions will be scored against ground truth annotations `qc/truth_multiclass.csv` and `qc/truth_binary.csv` using a combination of multiclass Receiver operating characteristic (ROC) curve analysis and binary performance metrics of precision and recall using the following Python scripts: `score/roc.py` and `score/pr.py`.
+Classifier predictions will be scored against binary (`qc/truth_binary.csv`) and multiclass (`qc/truth_multiclass.csv`) ground truth annotations using binary performance metrics of precision and recall and multiclass Receiver operating characteristic (ROC) curve analysis. Python scripts `pr.py` and `roc.py` in the `score` directory of this GitHub repository can be run at any time to assess model performance.
 
-To score binarized classifier predictions using metrics of precision and recall, pass binary predictions (0=clean, 1=artifact) and `qc/truth_binary.csv` to `score/pr.py` as follows:
-
-```
-$ python pr.py pred_binary.csv truth_binary.csv
-
-precision=0.78, recall=0.67
-```
-
-To score classifier predictions by multiclass Receiver Operating Characteristic (ROC) curve analysis, pass multiclass predictions formatted as in the "Classifier Output" section above and `qc/truth_multiclass.csv` to `score/roc.py` as follows:
+To score classifier predictions by multiclass Receiver Operating Characteristic (ROC) curve analysis, pass a multiclass predictions CSV table and `qc/truth_multiclass.csv` as ordered arguments to `roc.py` as follows:
 
 ```
 $ python roc.py  pred_multiclass.csv truth_multiclass.csv
@@ -100,22 +91,33 @@ $ python roc.py  pred_multiclass.csv truth_multiclass.csv
 
 <img src="images/roc.png" alt="drawing" width="700"/>
 
+To score binary classifier predictions (1=noisy, 0=artifact-free), first threshold a table of multiclass probability scores reassigning resulting labels >=2 to the value 1 (i.e. noisy) and those equal to 1 to the value (0=artifact-free). Then pass the binary predictions CSV table and `qc/truth_binary.csv` as ordered arguments to `pr.py` as follows:
+
+```
+$ python pr.py pred_binary.csv truth_binary.csv
+
+precision=0.78, recall=0.67
+```
+
 ## Considerations
 1. There is likely some degree in the ground truth labels themselves. How might classifiers be developed to be robust to artifact misclassification, artifact-free cells inadvertently classified as noisy (false positives), or artifacts which have gone unannotated (false negatives)?
 
 2. Which leads to superior classifier performance, those which are trained on image-derived single-cell (`csv/unmicst-WD-76845-097_cellRing.csv`), or those which are trained directly on pixel-level data? Could advantages be realized by training models on both data types?
 
 ## Suggested Computational Resources and Software Packages
-* A high-level programming language (Python 3 is recommended)
-* Software packages including data analysis libraries such as `pandas`, `numpy`, and `scipy`; libraries for reading, writing, analyzing, and visualizing multi-channel TIFF files like `tifffile`, `skimage`, `matplotlib`, `napari`, `scikit-learn`; and various machine learning and artificial intelligence libraries such as `tensorflow`, `keras`, and `pytorch`. If using Python 3, the aforementioned libraries can all be installed at once in a clean Python virtual environment dedicated to this project by running the following commands:
+* High-level programming language (Python 3 is recommended)
+* Core data science software packages (e.g. `pandas`, `numpy`, and `scipy`); libraries for reading, writing, analyzing, and visualizing multi-channel TIFF images (e.g. `tifffile`, `skimage`, `matplotlib`, `napari`); and machine learning and artificial intelligence libraries (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`).
+
+If using Python 3, all of the aforementioned libraries can be installed in a fresh Python virtual environment dedicated to this hackathon challenge by running the following commands (on Mac):
+
 ```
-$ python3 -m venv ~/artifacts  # Creates a new Python virtual environment
-$ source ~/artifacts/bin/activate  # Step into the new virtual environment
-$ pip install -r requirements.txt  # Install software packages from "requirements.txt"
+$ python3 -m venv ~/artifacts  # Creates a new Python virtual environment in home directory
+$ source ~/artifacts/bin/activate  # Steps into the newly created virtual environment
+$ pip install -r requirements.txt  # Installs software packages using the "requirements.txt" file in this GitHub repo
 ```
 
-## Team Check-in Times (all times US EST)
+## Team Check-In Times (all times US Eastern Standard)
 Virtual check-ins will occur daily at **10am** & **3pm** at the following Zoom link:
 * https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09.
 
-For questions outside of dedicated check-in times, please post to the #01-artifacts Slack channel.
+For questions outside of check-in times, please post to the #01-artifacts Slack channel.
