@@ -80,7 +80,7 @@ CellID,1,2,3,4,5,6
 .
 ```
 
-## Performance Evaluation
+## Multiclass Performance Evaluation
 Classifier predictions will be scored against binary (`qc/truth_binary.csv`) and multiclass (`qc/truth_multiclass.csv`) ground truth annotations using binary performance metrics of precision and recall and multiclass Receiver operating characteristic (ROC) curve analysis. Python scripts `pr.py` and `roc.py` in the `score` directory of this GitHub repository can be run at any time to assess model performance.
 
 To score classifier predictions by multiclass Receiver Operating Characteristic (ROC) curve analysis, pass a multiclass predictions CSV table and `qc/truth_multiclass.csv` as ordered arguments to `roc.py` as follows:
@@ -91,7 +91,8 @@ $ python roc.py  pred_multiclass.csv truth_multiclass.csv
 
 <img src="images/roc.png" alt="drawing" width="700"/>
 
-To score binary classifier predictions (1=noisy, 0=artifact-free), first threshold a table of multiclass probability scores reassigning resulting labels >=2 to the value 1 (i.e. noisy) and those equal to 1 to the value (0=artifact-free). Then pass the binary predictions CSV table and `qc/truth_binary.csv` as ordered arguments to `pr.py` as follows:
+## Binary Performance Evaluation
+To score classifier predictions as a set of binary labels (1=noisy, 0=artifact-free), first threshold the table of multiclass probability scores reassigning predicted class labels >=2 to the value of 1 (i.e. noisy) and those equal to 1 to the value of 0 (i.e. artifact-free). Nest, save the resulting binary predictions CSV table and pass it to `pr.py` along with `qc/truth_binary.csv` as follows:
 
 ```
 $ python pr.py pred_binary.csv truth_binary.csv
