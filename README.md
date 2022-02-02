@@ -6,9 +6,11 @@ Multiplex images of tissue contain information on the gene expression, morpholog
 ![](images/schematic.png)
 
 ## Dataset
-Test data for this challenge consist of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 different tumor, immune, and stromal markers over 8 rounds of multiplex immunofluorescence imaging by [CyCIF](https://www.cycif.org/). This dataset was collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as the SARDANA-097 image.
+Test data for this challenge will consist of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 tumor, immune, and stromal markers over 8 rounds of multiplex immunofluorescence imaging by [CyCIF](https://www.cycif.org/). The dataset was collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as the SARDANA-097 image.
 
-Multiclass quality control (QC) annotations flagging microscopy artifacts in the SARDANA-097 image have been manually curated and are provided as a reference for model training along with other data files pertinent to this challenge  at the Sage Synapse data repository under [Synapse ID: syn26848598](https://www.synapse.org/#!Synapse:syn26848598). Files are organized as follows:
+Multiclass quality control (QC) annotations flagging microscopy artifacts present throughtout the multiple channels constituting the SARDANA-097 image have been manually curated and provided as a reference for model training. These an other data files pertinent to this hackathon challenge can be found at the Sage Synapse data repository under [Synapse ID: syn26848598](https://www.synapse.org/#!Synapse:syn26848598).
+
+Data files and descriptions:
 
 <pre>
 <b>01-artifacts</b>  
@@ -41,19 +43,20 @@ Multiclass quality control (QC) annotations flagging microscopy artifacts in the
 </pre>
 
 File descriptions:
-* `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table containing cell IDs, spatial coordinates (x, y), integrated fluorescence signal intensities, and nuclear morphology attributes for 1,242,756 cells constituting the SARDANA-097 image.
-* `markers/markers.csv`: immunomarker metadata. Maps immunomarkers to image channel and CyCIF cycle numbers.
-* `mask/WD-76845-097.ome.tif`: cell segmentation mask indexed 0 (background) to N (total number of segmented cells in the image).
-* `qc/ROI_table.csv`: metadata for ROIs used to curate multiple classes of artifacts in the SARDANA-097 image.
-* `qc/polygon_dict.pkl`: shape type (ellipse or polygon) and vertices defining each ROI. Order corresponds to that in `qc/ROI_table.csv`.
-* `qc/qcmask_cell.csv`: cell segmentation mask annotated with multiclass QC labels: 0=background, 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur.  
-* `qc/qcmask_pixel.csv`: multiclass artifact ROI mask: 1=no ROI, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur.
-* `qc/truth.csv`: multiclass ground truth annotations for 1,242,756 cells comprising the SARDANA-097 image in long-table format.
-* `seg/WD-76845-097.ome.tif`: cell segmentation outlines. Defines boundaries of segmented cells in `mask/WD-76845-097.ome.tif`.
-* `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF file of CyCIF data for the SARDANA-097 image.
+* `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table containing cell IDs, spatial coordinates (x, y), integrated fluorescence signal intensities, and nuclear morphology attributes for the 1,242,756 cells constituting the SARDANA-097 image.
+* `markers/markers.csv`: immunomarker metadata, maps immunomarkers to image channel number and CyCIF cycle number.
+* `mask/WD-76845-097.ome.tif`: cell segmentation mask for the 1,242,756 cells comprising the SARDANA-097 image indexed 1 to N (0 reserved for background pixels).
+* `qc/ROI_table.csv`: ROI metadata for multiple classes of artifacts in the SARDANA-097 image.
+* `qc/polygon_dict.pkl`: shape type (ellipse or polygon) and vertice coordinates defining ROIs in `qc/ROI_table.csv`.
+* `qc/qcmask_cell.csv`: cell segmentation mask annotated with multiclass artifact labels: 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Labels 0 and 1 are reserved for background pixels and artifact-free cells, respectively.  
+* `qc/qcmask_pixel.csv`: Artifact ROI mask: 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Label 1 is reserved for pixels falling outside of an ROI.
+* `qc/truth_binary.csv`: binary ground truth annotations for the 1,242,756 cells comprising the SARDANA-097 image (0=noisy, 1=clean).
+* `qc/truth_multiclass.csv`: multiclass ground truth annotations for the 1,242,756 cells comprising the SARDANA-097 image (labels are those in `qc/qcmask_cell.csv`).
+* `seg/WD-76845-097.ome.tif`: cell segmentation outlines defining cell boundaries.
+* `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF file constituting the SARDANA-097 CyCIF image.
 
 ## Target Channels
-The raw SARDANA-097 dataset comprises a total of 40 channels; however, only 21 were used in the curation of microscopy artifacts to this challenge, as several of its channels represent signals from secondary antibodies used to block non-specific antibody binding or those which were otherwise determined to be unsuitable for the purposes of this challenge. While all channels may be used in classifier development, please use the following channels:
+The SARDANA-097 image comprises a total of 40 channels. However, artifacts were curated from only 21 of these channels, as several either contain signals from secondary antibodies alone or were otherwise deemed unsuitable for the purposes of this challenge. Please only consider the following channels:
 
 ```
 'Hoechst0', 'anti_CD3', 'anti_CD45RO', 'Keratin_570', 'aSMA_660', 'CD4_488', 'CD45_PE', 'PD1_647', 'CD20_488', 'CD68_555', 'CD8a_660', 'CD163_488', 'FOXP3_570', 'PDL1_647', 'Ecad_488', 'Vimentin_555', 'CDX2_647', 'LaminABC_488',
