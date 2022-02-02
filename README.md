@@ -42,7 +42,6 @@ Data files and descriptions:
 │   │   WD-76845-097.ome.tif
 </pre>
 
-File descriptions:
 * `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table containing cell IDs, spatial coordinates (x, y), integrated fluorescence signal intensities, and nuclear morphology attributes for the 1,242,756 cells constituting the SARDANA-097 image.
 * `markers/markers.csv`: immunomarker metadata, maps immunomarkers to image channel number and CyCIF cycle number.
 * `mask/WD-76845-097.ome.tif`: cell segmentation mask for the 1,242,756 cells comprising the SARDANA-097 image indexed 1 to N (0 reserved for background pixels).
