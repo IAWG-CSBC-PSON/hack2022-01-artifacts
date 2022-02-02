@@ -116,8 +116,8 @@ $ source ~/artifacts/bin/activate  # Steps into the newly created virtual enviro
 $ pip install -r requirements.txt  # Installs software packages using the "requirements.txt" file in this GitHub repo
 ```
 
-## Team Check-In Times (all times US Eastern Standard)
-Virtual check-ins will occur daily at **10am** & **3pm** at the following Zoom link:
+## Team Check-In Times
+Virtual check-ins will occur daily at **10am** & **3pm** ([US EST](https://dateful.com/time-zone-converter)) at the following Zoom link:
 * https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09.
 
 For questions outside of check-in times, please post to the #01-artifacts Slack channel.
