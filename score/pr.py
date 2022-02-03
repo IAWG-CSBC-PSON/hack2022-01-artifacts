@@ -71,17 +71,15 @@ for i in [2, 3, 4, 5, 6, 'Overall']:
             calls_copy['class_label'] != 0, 'class_label'] = 1  # noisy
 
     else:
-        # slice truth table to get ground truth labels for current class
-        truth_copy = truth_copy[truth_copy['class_label'] == i]
+        truth_copy.loc[
+            truth_copy['class_label'] != i, 'class_label'] = 0  # clean
         truth_copy.loc[
             truth_copy['class_label'] == i, 'class_label'] = 1  # noisy
 
-        # get predictions of cells with the current ground truth class
-        calls_copy = calls_copy[calls_copy.index.isin(truth_copy.index)]
+        calls_copy.loc[
+            calls_copy['class_label'] != i, 'class_label'] = 0  # clean
         calls_copy.loc[
             calls_copy['class_label'] == i, 'class_label'] = 1  # noisy
-        calls_copy.loc[
-            calls_copy['class_label'] != 1, 'class_label'] = 0  # clean
 
     # compute precision and recall on input
     precision, recall = binary_pr(calls_copy, truth_copy)
