@@ -6,11 +6,11 @@ Multiplex images of tissue contain information on the gene expression, morpholog
 ![](images/schematic.png)
 
 ## Dataset
-Test data for this challenge will consist of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 tumor, immune, and stromal markers over 8 rounds of multiplex immunofluorescence imaging by [CyCIF](https://www.cycif.org/). The dataset was collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as the SARDANA-097 image.
+Test data for this challenge consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 tumor, immune, and stromal markers over 8 rounds of multiplex immunofluorescence imaging by [CyCIF](https://www.cycif.org/). The dataset was collected as part of the Human Tumor Atlas Network (HTAN) and is referred to as the SARDANA-097 image.
 
-Multiclass quality control (QC) annotations flagging microscopy artifacts present throughtout the multiple channels constituting the SARDANA-097 image have been manually curated and provided as a reference for model training. These an other data files pertinent to this hackathon challenge can be found at the Sage Synapse data repository under [Synapse ID: syn26848598](https://www.synapse.org/#!Synapse:syn26848598).
+Multiclass quality control (QC) annotations flagging microscopy artifacts present throughout multiple marker channels constituting the SARDANA-097 image have been manually curated and are provided as a reference for model training. These an other data files pertinent to this hackathon challenge can be found at the Sage Synapse data repository under [Synapse ID: syn26848598](https://www.synapse.org/#!Synapse:syn26848598).
 
-Data files and descriptions:
+Data files and descriptions are as follows:
 
 <pre>
 <b>01-artifacts</b>  
@@ -43,19 +43,18 @@ Data files and descriptions:
 </pre>
 
 * `csv/unmicst-WD-76845-097_cellRing.csv`: single-cell feature table containing cell IDs, spatial coordinates (x, y), integrated fluorescence signal intensities, and nuclear morphology attributes for the 1,242,756 cells constituting the SARDANA-097 image.
-* `markers/markers.csv`: immunomarker metadata, maps immunomarkers to image channel number and CyCIF cycle number.
-* `mask/WD-76845-097.ome.tif`: cell segmentation mask for the 1,242,756 cells comprising the SARDANA-097 image indexed 1 to N (0 reserved for background pixels).
-* `qc/ROI_table.csv`: ROI metadata for multiple classes of artifacts in the SARDANA-097 image.
+* `markers/markers.csv`: immunomarker metadata mapping immunomarkers to image channel numbers and CyCIF cycle numbers.
+* `mask/WD-76845-097.ome.tif`: cell segmentation mask for the SARDANA-097 image indexed 1 to 1,242,756 with 0 reserved for background pixels.
+* `qc/ROI_table.csv`: ROI metadata for artifacts in the SARDANA-097 image.
 * `qc/polygon_dict.pkl`: shape type (ellipse or polygon) and vertice coordinates defining ROIs in `qc/ROI_table.csv`.
-* `qc/qcmask_cell.csv`: cell segmentation mask annotated with multiclass artifact labels: 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Labels 0 and 1 are reserved for background pixels and artifact-free cells, respectively.  
-* `qc/qcmask_pixel.csv`: Artifact ROI mask: 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Label 1 is reserved for pixels falling outside of an ROI.
-* `qc/truth_binary.csv`: binary ground truth annotations for the 1,242,756 cells comprising the SARDANA-097 image (0=noisy, 1=clean).
-* `qc/truth_multiclass.csv`: multiclass ground truth annotations for the 1,242,756 cells comprising the SARDANA-097 image (labels are those in `qc/qcmask_cell.csv`).
-* `seg/WD-76845-097.ome.tif`: cell segmentation outlines defining cell boundaries.
-* `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF file constituting the SARDANA-097 CyCIF image.
+* `qc/qcmask_cell.csv`: cell segmentation mask annotated by artifact labels: 0=background, 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur.
+* `qc/qcmask_pixel.csv`: ROI mask: 1=no ROI, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur.
+* `qc/truth.csv`: multiclass ground truth annotations for the 1,242,756 cells comprising the SARDANA-097 image.
+* `seg/WD-76845-097.ome.tif`: segmentation outlines defining cell boundaries in the SARDANA-097 image.
+* `tif/WD-76845-097.ome.tif`: stitched and registered 40-channel OME-TIFF file constituting the SARDANA-097 image.
 
 ## Target Channels
-The SARDANA-097 image comprises a total of 40 channels. However, artifacts were curated from only 21 of these channels, as several either contain signals from secondary antibodies alone or were otherwise deemed unsuitable for the purposes of this challenge. Please only consider the following channels:
+The SARDANA-097 image comprises a total of 40 channels. However, artifacts were curated from only 21 of these channels, as others either contained signals for secondary antibodies alone or were otherwise determined to be unsuitable for the purposes of this hackathon challenge. Please use the following channels for model training:
 
 ```
 'Hoechst0', 'anti_CD3', 'anti_CD45RO', 'Keratin_570', 'aSMA_660', 'CD4_488', 'CD45_PE', 'PD1_647', 'CD20_488', 'CD68_555', 'CD8a_660', 'CD163_488', 'FOXP3_570', 'PDL1_647', 'Ecad_488', 'Vimentin_555', 'CDX2_647', 'LaminABC_488',
@@ -63,12 +62,12 @@ The SARDANA-097 image comprises a total of 40 channels. However, artifacts were 
 ```
 
 ## Artifact Classes
-Examples of different types of artifacts in the SARDANA-097 image:
+Examples of different artifact types in the SARDANA-097 image:
 
 ![](images/artifacts.png)
 
 ## Classifier Output
-Classifier output should consist of a CSV file called `scores.csv` containing probability scores for each of the 6 artifact classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Classifier output should be formatted as follows:
+Classifier output should consist of a CSV file called `scores.csv` containing probability scores for each of 6 classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur and should be formatted as follows:
 
 ```
 "CellID","1","2","3","4","5","6"
@@ -81,7 +80,7 @@ Classifier output should consist of a CSV file called `scores.csv` containing pr
 ```
 
 ## Multiclass Performance Evaluation
-Classifier predictions will be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass `scores.csv` and `qc/truth.csv` as ordered arguments to `roc.py`:
+Classifier predictions can be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass `scores.csv` and `qc/truth.csv` as ordered arguments to `roc.py`:
 
 ```
 $ python roc.py  scores.csv truth.csv
@@ -90,7 +89,7 @@ $ python roc.py  scores.csv truth.csv
 <img src="images/roc.png" alt="drawing" width="700"/>
 
 ## Binary Performance Evaluation
-Binary performance evaluation requires that participants first solve for an optimal set of artifact class labels (`calls.csv`) based on classifier probability scores:
+Classifier predictions can also be scored against binary multiclass ground truth annotations using metrics of precision and recall. To do this, participants must first solve for an optimal set of artifact class labels based on classifier probability scores (`calls.csv`):
 
 ```
 "CellID","class_label"
@@ -104,7 +103,7 @@ Binary performance evaluation requires that participants first solve for an opti
 .
 ```
 
-Participants can then evaluate classifier precision and recall for individual and combined artifact classes by passing `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` as follows:
+Participants can then pass `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` as follows to compute precision and recall for individual and combined artifacts:
 
 ```
 $ python pr.py calls.csv truth.csv
@@ -123,18 +122,19 @@ Overall: precision=0.87, recall=0.79
 ```
 
 ## Considerations
-1. Ground truth labels can themselves be inaccurate. How might classifiers be developed to be robust to artifact misclassification, artifact-free cells inadvertently classified as noisy (false positives), or artifacts which have gone unannotated (false negatives)?
+1. Ground truth labels can themselves be inaccurate. How might classifiers be developed to guard against artifact misclassification, false positives (artifact-free cells inadvertently being classified as noisy), and false negatives (artifacts which have gone unannotated)?
 
-2. Which leads to superior classifier performance, those which are trained on image-derived single-cell (`csv/unmicst-WD-76845-097_cellRing.csv`), or those which are trained directly on pixel-level data? Could advantages be realized by training models on both data types?
+2. Which models achieve superior classifier performance, those which are trained on single-cell data (`csv/unmicst-WD-76845-097_cellRing.csv`), or those which are trained on pixel-level data (`tif/WD-76845-097.ome.tif`)? What about models trained on both data types?
 
 ## Suggested Computational Resources and Software Packages
 * High-level programming language (Python 3 is recommended)
-* Core data science software packages (e.g. `pandas`, `numpy`, and `scipy`); libraries for reading, writing, analyzing, and visualizing multi-channel TIFF images (e.g. `tifffile`, `skimage`, `matplotlib`, `napari`); and machine learning and artificial intelligence libraries (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`).
+* Core data science software packages (e.g. `pandas`, `numpy`, and `scipy`); libraries for reading, writing, analyzing, and visualizing multi-channel TIFF images (e.g. `tifffile`, `skimage`, `matplotlib`, `napari`); machine learning and artificial intelligence libraries (e.g. `scikit-learn`, `tensorflow`, `keras`, `pytorch`).
 
-If using Python 3, all of the aforementioned libraries can be installed in a fresh Python virtual environment dedicated to this hackathon challenge by running the following commands (on Mac):
+If using Python 3, the aforementioned libraries can be installed in a new Python virtual environment dedicated to this hackathon challenge by running the following commands:
 
 ```
-$ python3 -m venv ~/artifacts  # Creates a new Python virtual environment in home directory
+# on Mac
+$ python3 -m venv ~/artifacts  # Creates a new Python virtual environment in the home directory
 $ source ~/artifacts/bin/activate  # Steps into the newly created virtual environment
 $ pip install -r requirements.txt  # Installs software packages using the "requirements.txt" file in this GitHub repo
 ```
