@@ -92,7 +92,7 @@ $ python roc.py  scores.csv truth.csv
 Python scripts `pr.py` and `roc.py` in the `score` directory of this GitHub repository can be run at any time to assess model performance.
 
 ## Binary Performance Evaluation
-Binary performance evaluation requires that participants solve for an optimal set of artifact class calls based on classifier probability scores.
+Binary performance evaluation requires that participants first solve for an optimal set of artifact class calls based on classifier probability scores:
 
 ```
 "CellID","class_label"
@@ -106,7 +106,7 @@ Binary performance evaluation requires that participants solve for an optimal se
 .
 ```
 
-Participants can then score classifier performance on individual and combined artifact classes using precision and recall by passing the resulting calls table and `qc/truth.csv` as ordered arguments to `pr.py`:
+Participants can then score classifier performance on individual and combined artifact classes using precision and recall by passing the resulting table and `qc/truth.csv` as ordered arguments to `pr.py` as follows:
 
 ```
 $ python pr.py calls.csv truth.csv
@@ -115,7 +115,7 @@ precision=0.78, recall=0.67
 ```
 
 ## Considerations
-1. There is likely some degree in the ground truth labels themselves. How might classifiers be developed to be robust to artifact misclassification, artifact-free cells inadvertently classified as noisy (false positives), or artifacts which have gone unannotated (false negatives)?
+1. Ground truth labels can themselves be inaccurate. How might classifiers be developed to be robust to artifact misclassification, artifact-free cells inadvertently classified as noisy (false positives), or artifacts which have gone unannotated (false negatives)?
 
 2. Which leads to superior classifier performance, those which are trained on image-derived single-cell (`csv/unmicst-WD-76845-097_cellRing.csv`), or those which are trained directly on pixel-level data? Could advantages be realized by training models on both data types?
 
