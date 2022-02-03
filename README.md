@@ -67,7 +67,7 @@ Examples of different types of artifacts in the SARDANA-097 image:
 
 ![](images/artifacts.png)
 
-## Classifier Output (`scores.csv`)
+## Classifier Output
 Classifier output should consist of a CSV file called `scores.csv` containing probability scores for each of the 6 artifact classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Classifier output should be formatted as follows:
 
 ```
@@ -89,7 +89,7 @@ $ python roc.py  scores.csv truth.csv
 
 <img src="images/roc.png" alt="drawing" width="700"/>
 
-## Binary Performance Evaluation (`calls.csv`)
+## Binary Performance Evaluation
 Binary performance evaluation requires that participants first solve for an optimal set of artifact class labels (`calls.csv`) based on classifier probability scores:
 
 ```
