@@ -67,8 +67,8 @@ Examples of different types of artifacts in the SARDANA-097 image:
 
 ![](images/artifacts.png)
 
-## Classifier Output
-Classifier output should consist of a CSV file containing probability scores for each of the 6 artifact classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Classifier output should be formatted as follows:
+## Classifier Output (`scores.csv`)
+Classifier output should consist of a CSV file called `scores.csv` containing probability scores for each of the 6 artifact classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Classifier output should be formatted as follows:
 
 ```
 "CellID","1","2","3","4","5","6"
@@ -81,7 +81,7 @@ Classifier output should consist of a CSV file containing probability scores for
 ```
 
 ## Multiclass Performance Evaluation
-Classifier predictions will be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass a classified output structured as specified in the classifer ouput section above and `qc/truth.csv` as ordered arguments to `roc.py`:
+Classifier predictions will be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass `scores.csv` and `qc/truth.csv` as ordered arguments to `roc.py`:
 
 ```
 $ python roc.py  scores.csv truth.csv
@@ -89,10 +89,8 @@ $ python roc.py  scores.csv truth.csv
 
 <img src="images/roc.png" alt="drawing" width="700"/>
 
-Python scripts `pr.py` and `roc.py` in the `score` directory of this GitHub repository can be run at any time to assess model performance.
-
-## Binary Performance Evaluation
-Binary performance evaluation requires that participants first solve for an optimal set of artifact class calls based on classifier probability scores:
+## Binary Performance Evaluation (`calls.csv`)
+Binary performance evaluation requires that participants first solve for an optimal set of artifact class labels (`calls.csv`) based on classifier probability scores:
 
 ```
 "CellID","class_label"
@@ -106,7 +104,7 @@ Binary performance evaluation requires that participants first solve for an opti
 .
 ```
 
-Participants can then score classifier performance on individual and combined artifact classes using precision and recall by passing the resulting table and `qc/truth.csv` as ordered arguments to `pr.py` as follows:
+Participants can then evaluate classifier precision and recall for individual and combined artifact classes by passing `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` as follows:
 
 ```
 $ python pr.py calls.csv truth.csv
