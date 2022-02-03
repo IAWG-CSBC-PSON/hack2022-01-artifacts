@@ -103,7 +103,7 @@ Classifier predictions may also be scored against binary multiclass ground truth
 .
 ```
 
-Participants can then pass `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` for computing precision and recall on individual artifact classes and combined artifacts as follows:
+Participants can then pass `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` for computing precision and recall on individual and combined artifact classes as follows:
 
 <pre>
 $ python pr.py calls.csv truth.csv
@@ -129,6 +129,7 @@ If using Python 3, the aforementioned libraries can be installed in a new Python
 
 ```
 # on Mac
+
 $ python3 -m venv ~/artifacts  # Creates a new Python virtual environment in the home directory
 $ source ~/artifacts/bin/activate  # Steps into the newly created virtual environment
 $ pip install -r requirements.txt  # Installs software packages using the "requirements.txt" file in this GitHub repo
