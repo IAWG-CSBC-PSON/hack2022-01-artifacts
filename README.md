@@ -62,12 +62,12 @@ The SARDANA-097 image comprises a total of 40 channels. However, artifacts were 
 ```
 
 ## Artifact Classes
-Examples of different artifact types in the SARDANA-097 image:
+Examples of different artifact classes in the SARDANA-097 image:
 
 ![](images/artifacts.png)
 
 ## Classifier Output
-Classifier output should consist of a CSV file called `scores.csv` containing probability scores for each of 6 classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur and should be formatted as follows:
+Classifier output should consist of a CSV file called `scores.csv` containing probability scores for each of 6 classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur formatted as follows:
 
 ```
 "CellID","1","2","3","4","5","6"
@@ -80,7 +80,7 @@ Classifier output should consist of a CSV file called `scores.csv` containing pr
 ```
 
 ## Multiclass Performance Evaluation
-Classifier predictions can be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass `scores.csv` and `qc/truth.csv` as ordered arguments to `roc.py`:
+Classifier predictions may be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass `scores.csv` and `qc/truth.csv` as ordered arguments to `roc.py`:
 
 ```
 $ python roc.py  scores.csv truth.csv
@@ -89,11 +89,11 @@ $ python roc.py  scores.csv truth.csv
 <img src="images/roc.png" alt="drawing" width="700"/>
 
 ## Binary Performance Evaluation
-Classifier predictions can also be scored against binary multiclass ground truth annotations using metrics of precision and recall. To do this, participants must first solve for an optimal set of artifact class labels based on classifier probability scores (`calls.csv`):
+Classifier predictions may also be scored against binary multiclass ground truth labels using precision and recall. To do so, participants must first solve for an optimal set of artifact class labels based on classifier probability scores (`calls.csv`):
 
 ```
 "CellID","class_label"
-1,2
+1,1
 2,2
 3,3
 4,1
@@ -103,21 +103,16 @@ Classifier predictions can also be scored against binary multiclass ground truth
 .
 ```
 
-Participants can then pass `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` as follows to compute precision and recall for individual and combined artifacts:
+Participants can then pass `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` for computing precision and recall on individual artifact classes and combined artifacts as follows:
 
 ```
 $ python pr.py calls.csv truth.csv
 
 Fluor: precision=0.78, recall=0.67
-
 Debris: precision=0.61, recall=0.45
-
 Bubble: precision=0.73, recall=0.84
-
 Staining: precision=0.90, recall=0.62
-
 Blur: precision=0.57, recall=0.56
-
 Overall: precision=0.87, recall=0.79
 ```
 

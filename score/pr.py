@@ -53,6 +53,7 @@ class_metadata = {
     5: 'Staining', 6: 'Blur', 'Overall': 'Overall'
     }
 
+print()
 # loop over individual and combined class labels:
 for i in [2, 3, 4, 5, 6, 'Overall']:
 
@@ -85,5 +86,7 @@ for i in [2, 3, 4, 5, 6, 'Overall']:
     precision, recall = binary_pr(calls_copy, truth_copy)
 
     # print precision and recall values
-    print()
-    print(f'{class_metadata[i]}: precision={precision}, recall={recall}')
+    print(
+        f'\033[1m{class_metadata[i]}:\033[0m ' +
+        f'precision={precision}, recall={recall}'
+        )
