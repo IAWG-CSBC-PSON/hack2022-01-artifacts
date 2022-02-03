@@ -68,10 +68,10 @@ Examples of different types of artifacts in the SARDANA-097 image:
 ![](images/artifacts.png)
 
 ## Classifier Output
-Classifier output should consist of a CSV file containing probability scores for each of 6 classes of cells: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur and be formatted as follows:
+Classifier output should consist of a CSV file containing probability scores for each of the 6 artifact classes: 1=artifact-free, 2=fluorescence aberration, 3=slide debris, 4=coverslip air bubble, 5=uneven immunolabeling, 6=image blur. Classifier output should be formatted as follows:
 
 ```
-CellID,1,2,3,4,5,6
+"CellID","1","2","3","4","5","6"
 1,0.95,0.23,0.14,0.05,0.39,0.21
 2,0.10,0.09,0.56,0.67,0.89,0.01
 3,0.03,0.28,0.22,0.17,0.42,0.91
@@ -81,21 +81,35 @@ CellID,1,2,3,4,5,6
 ```
 
 ## Multiclass Performance Evaluation
-Classifier predictions will be scored against binary (`qc/truth_binary.csv`) and multiclass (`qc/truth_multiclass.csv`) ground truth annotations using binary performance metrics of precision and recall and multiclass Receiver operating characteristic (ROC) curve analysis. Python scripts `pr.py` and `roc.py` in the `score` directory of this GitHub repository can be run at any time to assess model performance.
-
-To score classifier predictions by multiclass Receiver Operating Characteristic (ROC) curve analysis, pass a multiclass predictions CSV table and `qc/truth_multiclass.csv` as ordered arguments to `roc.py` as follows:
+Classifier predictions will be scored against multiclass ground truth annotations (`qc/truth.csv`) using Receiver operating characteristic (ROC) curve analysis. To score classifier predictions, pass a classified output structured as specified in the classifer ouput section above and `qc/truth.csv` as ordered arguments to `roc.py`:
 
 ```
-$ python roc.py  pred_multiclass.csv truth_multiclass.csv
+$ python roc.py  scores.csv truth.csv
 ```
 
 <img src="images/roc.png" alt="drawing" width="700"/>
 
+Python scripts `pr.py` and `roc.py` in the `score` directory of this GitHub repository can be run at any time to assess model performance.
+
 ## Binary Performance Evaluation
-To score classifier predictions as a set of binary labels (1=noisy, 0=artifact-free), first threshold the table of multiclass probability scores reassigning predicted class labels >=2 to the value of 1 (i.e. noisy) and those equal to 1 to the value of 0 (i.e. artifact-free). Nest, save the resulting binary predictions CSV table and pass it to `pr.py` along with `qc/truth_binary.csv` as follows:
+Binary performance evaluation requires that participants solve for an optimal set of artifact class calls based on classifier probability scores.
 
 ```
-$ python pr.py pred_binary.csv truth_binary.csv
+"CellID","class_label"
+1,2
+2,2
+3,3
+4,1
+5,2
+.
+.
+.
+```
+
+Participants can then score classifier performance on individual and combined artifact classes using precision and recall by passing the resulting calls table and `qc/truth.csv` as ordered arguments to `pr.py`:
+
+```
+$ python pr.py calls.csv truth.csv
 
 precision=0.78, recall=0.67
 ```
