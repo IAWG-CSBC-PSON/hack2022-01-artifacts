@@ -106,14 +106,16 @@ Classifier predictions may also be scored against binary multiclass ground truth
 Participants can then pass `calls.csv` and `qc/truth.csv` as ordered arguments to `pr.py` for computing precision and recall on individual artifact classes and combined artifacts as follows:
 
 ```
+<pre>
 $ python pr.py calls.csv truth.csv
 
-Fluor: precision=0.78, recall=0.67
-Debris: precision=0.61, recall=0.45
-Bubble: precision=0.73, recall=0.84
-Staining: precision=0.90, recall=0.62
-Blur: precision=0.57, recall=0.56
-Overall: precision=0.87, recall=0.79
+<b>Fluor:</b> precision=0.78, recall=0.67
+<b>Debris:</b> precision=0.61, recall=0.45
+<b>Bubble:</b> precision=0.73, recall=0.84
+<b>Staining:</b> precision=0.90, recall=0.62
+<b>Blur:</b> precision=0.57, recall=0.56
+<b>Overall:</b> precision=0.87, recall=0.79
+</pre>
 ```
 
 ## Considerations
