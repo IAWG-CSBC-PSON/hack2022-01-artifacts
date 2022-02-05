@@ -6,7 +6,7 @@ Multiplex images of tissue contain information on the gene expression, morpholog
 ![](images/schematic.png)
 
 ## Dataset
-Test data for this challenge was collected as part of the Human Tumor Atlas Network (HTAN) and consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 tumor, immune, and stromal markers over 8 rounds of multiplex immunofluorescence imaging by [CyCIF](https://www.cycif.org/) called SARDANA-097.
+Test data for this challenge was collected as part of the Human Tumor Atlas Network (HTAN) and consists of a single 1.6cm<sup>2</sup> section of primary human colorectal adenocarcinoma probed for 21 tumor, immune, and stromal markers over 8 rounds of multiplex immunofluorescence imaging by [CyCIF](https://www.cycif.org/) (SARDANA-097).
 
 Multiclass quality control (QC) annotations flagging microscopy artifacts present throughout multiple marker channels constituting the SARDANA-097 image have been manually curated and are provided as a reference for model training. These an other data files pertinent to this hackathon challenge can be found at the Sage Synapse data repository under [Synapse ID: syn26848598](https://www.synapse.org/#!Synapse:syn26848598).
 
