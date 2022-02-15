@@ -138,6 +138,6 @@ $ pip install -r requirements.txt  # Installs software packages using the "requi
 
 ## Team Check-In Times
 Virtual check-ins will occur daily at **9am** & **1pm** ([US EST](https://dateful.com/time-zone-converter)) at the following Zoom link:
-* https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09
-* https://harvard.zoom.us/j/97485448563?pwd=dWw3VDA5RUZ3emhHVFJsMVZtSUMydz09
+* 1: https://us02web.zoom.us/j/84722597891?pwd=aVR5VkhBN1hsRHIrRFpTblhzMTI0Zz09
+* 2: https://harvard.zoom.us/j/97485448563?pwd=dWw3VDA5RUZ3emhHVFJsMVZtSUMydz09
 * For questions outside of these times, please post to the #01-artifacts Slack channel.
